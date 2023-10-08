@@ -1,7 +1,7 @@
-package hw1;
+package edu.hw1;
 
-import java.util.Comparator;
 import java.util.Arrays;
+import java.util.Comparator;
 
 public class Task6 {
     private Task6() {

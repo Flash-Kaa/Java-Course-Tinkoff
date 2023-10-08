@@ -1,4 +1,4 @@
-package hw1;
+package edu.hw1;
 
 import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.Arguments;
