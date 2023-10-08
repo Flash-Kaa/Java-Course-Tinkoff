@@ -1,6 +1,5 @@
-package hw_1;
+package hw1;
 
-import org.intellij.lang.annotations.MagicConstant;
 import java.util.Comparator;
 import java.util.Arrays;
 
@@ -8,7 +7,7 @@ public class Task6 {
     private Task6() {
     }
 
-    @MagicConstant
+    @SuppressWarnings("MagicNumber")
     public static int countK(int number) {
         if (number > 9999 || number < 1000 || number % 1111 == 0) {
             throw new IllegalArgumentException();
@@ -32,7 +31,7 @@ public class Task6 {
     private final static Comparator<Integer> DECREASING_COMPORATOR =
         (firstValue, secondValue) -> -Integer.compare(firstValue, secondValue);
 
-    @MagicConstant
+    @SuppressWarnings("MagicNumber")
     private static int cutNumberWithSort(int number, boolean isDecreasing) {
         var res = new Integer[4];
 

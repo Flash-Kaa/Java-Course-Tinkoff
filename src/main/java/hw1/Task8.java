@@ -1,12 +1,10 @@
-package hw_1;
-
-import org.intellij.lang.annotations.MagicConstant;
+package hw1;
 
 public class Task8 {
     private Task8() {
     }
 
-    @MagicConstant
+    @SuppressWarnings("MagicNumber")
     public static boolean knightBoardCapture(int[][] board) {
         checkCorrectness(board);
 
@@ -33,7 +31,7 @@ public class Task8 {
         return true;
     }
 
-    @MagicConstant
+    @SuppressWarnings("MagicNumber")
     private static void checkCorrectness(int[][] board) {
         if (board.length != 8) {
             throw new IllegalArgumentException();

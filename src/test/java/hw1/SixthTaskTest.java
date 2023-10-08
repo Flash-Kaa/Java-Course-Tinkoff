@@ -1,4 +1,4 @@
-package hw_1;
+package hw1;
 
 import org.intellij.lang.annotations.MagicConstant;
 import org.junit.jupiter.api.DisplayName;

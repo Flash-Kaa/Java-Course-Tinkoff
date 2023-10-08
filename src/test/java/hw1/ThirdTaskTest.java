@@ -1,4 +1,4 @@
-package hw_1;
+package hw1;
 
 import java.util.stream.Stream;
 import org.junit.jupiter.params.ParameterizedTest;

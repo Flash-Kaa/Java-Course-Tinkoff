@@ -1,12 +1,10 @@
-package hw_1;
-
-import org.intellij.lang.annotations.MagicConstant;
+package hw1;
 
 public class Task1 {
     private Task1() {
     }
 
-    @MagicConstant
+    @SuppressWarnings("MagicNumber")
     public static int minutesToSeconds(String time) {
         var time1 = time.split(":");
 

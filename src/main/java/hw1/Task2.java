@@ -1,12 +1,10 @@
-package hw_1;
-
-import org.intellij.lang.annotations.MagicConstant;
+package hw1;
 
 public class Task2 {
     private Task2() {
     }
 
-    @MagicConstant
+    @SuppressWarnings("MagicNumber")
     public static int countDigits(int number) {
         var count = 0;
         var numForChange = number;
