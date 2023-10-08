@@ -28,7 +28,7 @@ public class Task6 {
         return cycle;
     }
 
-    private static Comparator<Integer> decreasingComporator =
+    private final static Comparator<Integer> decreasingComporator =
         (firstValue, secondValue) -> -Integer.compare(firstValue, secondValue);
 
     @MagicConstant

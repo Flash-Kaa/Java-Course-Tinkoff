@@ -1,7 +1,5 @@
 package hw1;
 
-import org.jetbrains.annotations.NotNull;
-
 public class Task1 {
     private Task1() {
     }
