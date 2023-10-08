@@ -1,4 +1,4 @@
-package hw1;
+package hw_1;
 
 import org.intellij.lang.annotations.MagicConstant;
 
@@ -6,6 +6,7 @@ public class Task8 {
     private Task8() {
     }
 
+    @MagicConstant
     public static boolean knightBoardCapture(int[][] board) {
         checkCorrectness(board);
 

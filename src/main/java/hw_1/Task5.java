@@ -1,4 +1,4 @@
-package hw1;
+package hw_1;
 
 public class Task5 {
     private Task5() {

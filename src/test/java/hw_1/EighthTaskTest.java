@@ -1,4 +1,4 @@
-package hw1;
+package hw_1;
 
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;

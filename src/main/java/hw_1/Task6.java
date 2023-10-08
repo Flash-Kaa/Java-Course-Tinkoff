@@ -1,13 +1,14 @@
-package hw1;
+package hw_1;
 
 import org.intellij.lang.annotations.MagicConstant;
-import java.util.Arrays;
 import java.util.Comparator;
+import java.util.Arrays;
 
 public class Task6 {
     private Task6() {
     }
 
+    @MagicConstant
     public static int countK(int number) {
         if (number > 9999 || number < 1000 || number % 1111 == 0) {
             throw new IllegalArgumentException();
@@ -28,7 +29,7 @@ public class Task6 {
         return cycle;
     }
 
-    private final static Comparator<Integer> decreasingComporator =
+    private final static Comparator<Integer> DECREASING_COMPORATOR =
         (firstValue, secondValue) -> -Integer.compare(firstValue, secondValue);
 
     @MagicConstant
@@ -39,7 +40,7 @@ public class Task6 {
             res[i] = (int) (number / Math.pow(10, 3 - i) % 10);
         }
 
-        Arrays.sort(res, isDecreasing ? decreasingComporator : null);
+        Arrays.sort(res, isDecreasing ? DECREASING_COMPORATOR : null);
 
         var resN = 0;
 
