@@ -4,26 +4,26 @@ public class Task3 {
     private Task3() {
     }
 
-    public static boolean isNestable(int[] arr1, int[] arr2) {
-        return arr1.length > 0 && arr2.length > 0
-            && findMinValue(arr1) > findMinValue(arr2)
-            && findMaxValue(arr1) < findMaxValue(arr2);
+    public static boolean isNestable(int[] firstInputArray, int[] secondInputArray) {
+        return firstInputArray.length > 0 && secondInputArray.length > 0
+            && findMinValueInArray(firstInputArray) > findMinValueInArray(secondInputArray)
+            && findMaxValueInArray(firstInputArray) < findMaxValueInArray(secondInputArray);
     }
 
-    private static int findMinValue(int[] array) {
-        var min = Integer.MAX_VALUE;
+    private static int findMinValueInArray(int[] array) {
+        int min = Integer.MAX_VALUE;
 
-        for (var i : array) {
+        for (int i : array) {
             min = Integer.min(min, i);
         }
 
         return min;
     }
 
-    private static int findMaxValue(int[] array) {
-        var max = Integer.MIN_VALUE;
+    private static int findMaxValueInArray(int[] array) {
+        int max = Integer.MIN_VALUE;
 
-        for (var i : array) {
+        for (int i : array) {
             max = Integer.max(max, i);
         }
 

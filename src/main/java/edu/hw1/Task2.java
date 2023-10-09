@@ -4,14 +4,15 @@ public class Task2 {
     private Task2() {
     }
 
-    @SuppressWarnings("MagicNumber")
+    private static final int DIVISOR_THAT_CHANGES_DIGIT_OF_NUMBER = 10;
+
     public static int countDigits(int number) {
-        var count = 0;
-        var numForChange = number;
+        int count = 0;
+        int numForChange = number;
 
         do {
             count++;
-            numForChange /= 10;
+            numForChange /= DIVISOR_THAT_CHANGES_DIGIT_OF_NUMBER;
         } while (numForChange != 0);
 
         return count;

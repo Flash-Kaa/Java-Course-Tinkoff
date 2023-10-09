@@ -5,18 +5,17 @@ public class Task4 {
     }
 
     public static String fixString(String str) {
-        var strLen = str.length();
-        var sb = new StringBuilder();
+        int strLength = str.length();
+        StringBuilder resultString = new StringBuilder();
 
-        for (var i = 0; i < strLen; i += 2) {
-
-            if (i < strLen - 1) {
-                sb.append(str.charAt(i + 1));
+        for (int i = 0; i < strLength; i += 2) {
+            if (i < strLength - 1) {
+                resultString.append(str.charAt(i + 1));
             }
 
-            sb.append(str.charAt(i));
+            resultString.append(str.charAt(i));
         }
 
-        return sb.toString();
+        return resultString.toString();
     }
 }

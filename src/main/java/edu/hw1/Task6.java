@@ -7,46 +7,50 @@ public class Task6 {
     private Task6() {
     }
 
-    @SuppressWarnings("MagicNumber")
+    private static final int DIGIT_COUNT = 4;
+    private static final int MAX_NUMBER = 9999;
+    private static final int MIN_NUMBER = 1000;
+    private static final int TARGET_NUMBER = 6174;
+    private static final int MUST_NOT_BE_DIVISOR = 1111;
+    private static final int DIVISOR_CHANGES_DIGIT_OF_NUMBER = 10;
+
+    private final static Comparator<Integer> DECREASING_COMPARATOR =
+        (firstValue, secondValue) -> -Integer.compare(firstValue, secondValue);
+
     public static int countK(int number) {
-        if (number > 9999 || number < 1000 || number % 1111 == 0) {
+        if (number > MAX_NUMBER || number < MIN_NUMBER || number % MUST_NOT_BE_DIVISOR == 0) {
             throw new IllegalArgumentException();
         }
 
-        var cycle = 0;
-        var curNum = number;
+        int cycle = 0;
+        int numForChange = number;
 
-        while (curNum != 6174) {
+        while (numForChange != TARGET_NUMBER) {
+            int decreasingNumber = orderDigitsInNumber(numForChange, true);
+            int increasingNumber = orderDigitsInNumber(numForChange, false);
+
             cycle++;
-
-            var decreasingNumber = cutNumberWithSort(curNum, true);
-            var increasingNumber = cutNumberWithSort(curNum, false);
-
-            curNum = decreasingNumber - increasingNumber;
+            numForChange = decreasingNumber - increasingNumber;
         }
 
         return cycle;
     }
 
-    private final static Comparator<Integer> DECREASING_COMPORATOR =
-        (firstValue, secondValue) -> -Integer.compare(firstValue, secondValue);
+    private static int orderDigitsInNumber(int number, boolean isDecreasing) {
+        Integer[] resultDigits = new Integer[DIGIT_COUNT];
+        int resNumber = 0;
 
-    @SuppressWarnings("MagicNumber")
-    private static int cutNumberWithSort(int number, boolean isDecreasing) {
-        var res = new Integer[4];
-
-        for (var i = 0; i < res.length; i++) {
-            res[i] = (int) (number / Math.pow(10, 3 - i) % 10);
+        for (int i = 0; i < resultDigits.length; i++) {
+            int partOfNumber = (int) (number / Math.pow(DIVISOR_CHANGES_DIGIT_OF_NUMBER, DIGIT_COUNT - 1 - i));
+            resultDigits[i] = partOfNumber % DIVISOR_CHANGES_DIGIT_OF_NUMBER;
         }
 
-        Arrays.sort(res, isDecreasing ? DECREASING_COMPORATOR : null);
+        Arrays.sort(resultDigits, isDecreasing ? DECREASING_COMPARATOR : null);
 
-        var resN = 0;
-
-        for (var i = 0; i < res.length; i++) {
-            resN += (int) (res[i] * Math.pow(10, 3 - i));
+        for (int i = 0; i < resultDigits.length; i++) {
+            resNumber += (int) (resultDigits[i] * Math.pow(DIVISOR_CHANGES_DIGIT_OF_NUMBER, DIGIT_COUNT - 1 - i));
         }
 
-        return resN;
+        return resNumber;
     }
 }

@@ -2,12 +2,38 @@ package edu.hw1;
 
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.params.ParameterizedTest;
+import org.junit.jupiter.params.provider.Arguments;
+import org.junit.jupiter.params.provider.MethodSource;
 import org.junit.jupiter.params.provider.ValueSource;
 import java.util.Random;
+import java.util.stream.Stream;
 import static org.assertj.core.api.AssertionsForClassTypes.assertThat;
 
 public class FirstTaskTest {
     private FirstTaskTest() {
+    }
+
+    static Stream<Arguments> argumentProvider() {
+        return Stream.of(
+            Arguments.of("00:1", 1),
+            Arguments.of("1:1", 61),
+            Arguments.of("1:13", 73),
+            Arguments.of("1000:13", 60013),
+            Arguments.of("10:60", -1),
+            Arguments.of("10:100", -1),
+            Arguments.of("-1:10", -1),
+            Arguments.of("ups:ups", -1),
+            Arguments.of("ups:ups:doubleUps", -1)
+        );
+    }
+
+    @ParameterizedTest()
+    @MethodSource("argumentProvider")
+    @DisplayName("Fixed numbers")
+    void testFixedInputs(String inputTime, int expectedResult) {
+        var result = Task1.minutesToSeconds(inputTime);
+
+        assertThat(result).isEqualTo(expectedResult);
     }
 
     @ParameterizedTest()

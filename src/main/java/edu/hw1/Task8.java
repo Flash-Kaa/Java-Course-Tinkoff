@@ -4,7 +4,8 @@ public class Task8 {
     private Task8() {
     }
 
-    @SuppressWarnings("MagicNumber")
+    private static final int BOARD_SIZE = 8;
+
     public static boolean knightBoardCapture(int[][] board) {
         checkCorrectness(board);
 
@@ -31,14 +32,13 @@ public class Task8 {
         return true;
     }
 
-    @SuppressWarnings("MagicNumber")
     private static void checkCorrectness(int[][] board) {
-        if (board.length != 8) {
+        if (board.length != BOARD_SIZE) {
             throw new IllegalArgumentException();
         }
 
         for (var line : board) {
-            if (line.length != 8) {
+            if (line.length != BOARD_SIZE) {
                 throw new IllegalArgumentException();
             }
         }
