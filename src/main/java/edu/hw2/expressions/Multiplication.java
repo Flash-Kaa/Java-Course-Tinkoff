@@ -3,7 +3,7 @@ package edu.hw2.expressions;
 public record Multiplication(Expr firstValue, Expr secondValue) implements Expr {
     @Override
     public double evaluate() {
-        if(firstValue == null || secondValue == null) {
+        if (firstValue == null || secondValue == null) {
             throw new NullPointerException();
         }
 

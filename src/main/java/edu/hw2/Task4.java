@@ -4,12 +4,18 @@ public class Task4 {
     private Task4() {
     }
 
-    private static final int COUNT_STACK_TRACE_AFTER_CALLING = 2;
+    private static final int COUNT_STACK_TRACE_AFTER_CALLING_IN_THREAD = 2;
+    private static final int INDEX_STACK_TRACE_WITH_EXCEPTION = 0;
 
-    // При чём тут Throwable#getStackTrace? В Throwable вообще нет статичных полей, как я понял, да и это же класс.. я решил задачу, как понял..
-    public static CallingInfo getCallingInfo() { // first calling
-        var stackTrace = Thread.currentThread().getStackTrace(); // second calling
-        var curStackTraceElement = stackTrace[COUNT_STACK_TRACE_AFTER_CALLING];
-        return new CallingInfo(curStackTraceElement.getClassLoaderName(), curStackTraceElement.getMethodName());
+    public static CallingInfo getCallingInfo(Exception exception) {
+        StackTraceElement curTrace;
+
+        if (exception == null) {
+            curTrace = Thread.currentThread().getStackTrace()[COUNT_STACK_TRACE_AFTER_CALLING_IN_THREAD];
+        } else {
+            curTrace = exception.getStackTrace()[INDEX_STACK_TRACE_WITH_EXCEPTION];
+        }
+
+        return new CallingInfo(curTrace.getClassName(), curTrace.getMethodName());
     }
 }
