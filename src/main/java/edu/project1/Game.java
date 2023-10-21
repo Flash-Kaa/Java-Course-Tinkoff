@@ -18,7 +18,7 @@ public class Game {
 
         this.maxMistakesAllowed = maxMistakesAllowed;
         word = Dictionary.getWord().toLowerCase();
-        var wordLen = word.length();
+        int wordLen = word.length();
 
         if (wordLen < MIN_WORD_LEN) {
             throw new IllegalWordException(word);
@@ -30,10 +30,10 @@ public class Game {
 
     @SuppressWarnings("RegexpSinglelineJava")
     public void play() {
-        var scanner = new Scanner(System.in);
+        Scanner inputReader = new Scanner(System.in);
 
         while (true) {
-            var input = getInputOrNull(scanner);
+            String input = getInputOrNull(inputReader);
 
             if (input == null || input.equalsIgnoreCase(EXIT_PHRASE)) {
                 break;
@@ -43,9 +43,9 @@ public class Game {
                 continue;
             }
 
-            var charInput = input.charAt(0);
-            var result = ResultUtils.getIntermediateResult(word, userSequence, charInput,
-                maxMistakesAllowed, mistakeCount
+            char charInput = input.charAt(0);
+            SessionResult result = ResultUtils.getIntermediateResult(
+                word, userSequence, charInput,maxMistakesAllowed, mistakeCount
             );
 
             if (result instanceof SessionResult.FailedGuess) {
@@ -60,11 +60,11 @@ public class Game {
     }
 
     @SuppressWarnings("RegexpSinglelineJava")
-    private String getInputOrNull(Scanner scanner) {
+    private String getInputOrNull(Scanner inputReader) {
         System.out.println("The word: " + new String(userSequence));
         System.out.println();
 
-        var result = ResultUtils.getFinalResultOrNull(word, userSequence, maxMistakesAllowed, mistakeCount);
+        SessionResult result = ResultUtils.getFinalResultOrNull(word, userSequence, maxMistakesAllowed, mistakeCount);
 
         if (result != null) {
             System.out.println(result.message());
@@ -73,6 +73,6 @@ public class Game {
 
         System.out.println("Guess a letter:");
 
-        return scanner.nextLine().toLowerCase();
+        return inputReader.nextLine().toLowerCase();
     }
 }
