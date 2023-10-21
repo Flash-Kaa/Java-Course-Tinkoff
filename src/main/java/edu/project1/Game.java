@@ -45,7 +45,7 @@ public class Game {
 
             char charInput = input.charAt(0);
             SessionResult result = ResultUtils.getIntermediateResult(
-                word, userSequence, charInput,maxMistakesAllowed, mistakeCount
+                word, userSequence, charInput, maxMistakesAllowed, mistakeCount
             );
 
             if (result instanceof SessionResult.FailedGuess) {
