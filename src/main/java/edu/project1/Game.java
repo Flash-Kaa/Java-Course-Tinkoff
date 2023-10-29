@@ -1,5 +1,7 @@
 package edu.project1;
 
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 import java.util.Arrays;
 import java.util.Scanner;
 
@@ -10,6 +12,7 @@ public class Game {
     private final char[] userSequence;
     private final int maxMistakesAllowed;
     private int mistakeCount = 0;
+    private final Logger logger = LogManager.getLogger();
 
     public Game(int maxMistakesAllowed) {
         if (maxMistakesAllowed <= 0) {
@@ -28,7 +31,6 @@ public class Game {
         Arrays.fill(userSequence, '*');
     }
 
-    @SuppressWarnings("RegexpSinglelineJava")
     public void play() {
         Scanner inputReader = new Scanner(System.in);
 
@@ -54,24 +56,23 @@ public class Game {
                 HiddenWordUtils.openLettersInSequence(userSequence, word, charInput);
             }
 
-            System.out.println(result.message());
-            System.out.println();
+            logger.info(result.message());
+            logger.info("");
         }
     }
 
-    @SuppressWarnings("RegexpSinglelineJava")
     private String getInputOrNull(Scanner inputReader) {
-        System.out.println("The word: " + new String(userSequence));
-        System.out.println();
+        logger.info("The word: " + new String(userSequence));
+        logger.info("");
 
         SessionResult result = ResultUtils.getFinalResultOrNull(word, userSequence, maxMistakesAllowed, mistakeCount);
 
         if (result != null) {
-            System.out.println(result.message());
+            logger.info(result.message());
             return null;
         }
 
-        System.out.println("Guess a letter:");
+        logger.info("Guess a letter:");
 
         return inputReader.nextLine().toLowerCase();
     }
