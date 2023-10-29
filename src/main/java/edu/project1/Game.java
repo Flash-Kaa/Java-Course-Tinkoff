@@ -1,9 +1,9 @@
 package edu.project1;
 
-import org.apache.logging.log4j.LogManager;
-import org.apache.logging.log4j.Logger;
 import java.util.Arrays;
 import java.util.Scanner;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 
 public class Game {
     private static final String EXIT_PHRASE = "to exit";
