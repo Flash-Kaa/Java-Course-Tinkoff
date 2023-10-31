@@ -25,8 +25,8 @@ public class RecursiveBacktrackerGeneratorTest {
         var solverBFS = new SolverBFS();
         var solverDFS = new SolverDFS();
 
-        for(var h = startHeight; h <= endHeight; h += 2) {
-            for(var w = startWidth; w <= endWidth; w += 2) {
+        for (var h = startHeight; h <= endHeight; h += 2) {
+            for (var w = startWidth; w <= endWidth; w += 2) {
                 var maze = generator.generate(h, w);
 
                 var as = solverAStar.solve(maze);

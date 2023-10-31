@@ -1,7 +1,6 @@
 package edu.project2;
 
 import edu.project2.generators.GeneratorDFS;
-import edu.project2.generators.RecursiveBacktrackerGenerator;
 import edu.project2.renderers.CustomRenderer;
 import edu.project2.solvers.SolverAStar;
 import org.apache.logging.log4j.LogManager;

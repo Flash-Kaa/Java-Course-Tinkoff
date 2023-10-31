@@ -1,12 +1,11 @@
 package edu.project2;
 
 import edu.project2.generators.GeneratorDFS;
-import edu.project2.generators.RecursiveBacktrackerGenerator;
 import edu.project2.solvers.SolverAStar;
 import edu.project2.solvers.SolverBFS;
 import edu.project2.solvers.SolverDFS;
-import org.junit.jupiter.api.Test;
 import java.util.List;
+import org.junit.jupiter.api.Test;
 import static org.assertj.core.api.Assertions.assertThat;
 
 public class GeneratorDFSTest {
@@ -26,8 +25,8 @@ public class GeneratorDFSTest {
         var solverBFS = new SolverBFS();
         var solverDFS = new SolverDFS();
 
-        for(var h = startHeight; h <= endHeight; h += 2) {
-            for(var w = startWidth; w <= endWidth; w += 2) {
+        for (var h = startHeight; h <= endHeight; h += 2) {
+            for (var w = startWidth; w <= endWidth; w += 2) {
                 var maze = generator.generate(h, w);
 
                 var as = solverAStar.solve(maze);
