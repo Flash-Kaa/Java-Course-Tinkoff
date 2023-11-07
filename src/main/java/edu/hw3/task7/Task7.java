@@ -1,4 +1,4 @@
-package edu.hw3;
+package edu.hw3.task7;
 
 import java.util.Comparator;
 import java.util.TreeMap;

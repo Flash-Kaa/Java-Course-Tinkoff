@@ -1,4 +1,4 @@
-package edu.hw3;
+package edu.hw3.task2;
 
 import java.util.ArrayList;
 import java.util.List;

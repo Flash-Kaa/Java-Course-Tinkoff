@@ -1,7 +1,8 @@
-package edu.hw3;
+package edu.hw3.task4;
 
 import java.util.HashMap;
 import java.util.List;
+import java.util.*;
 
 public class Task4 {
     private Task4() {
@@ -17,15 +18,16 @@ public class Task4 {
     private static final int MIN_ROMAN_NUMBER_IN_ARABIC = 1;
     private static final int MAX_ROMAN_NUMBER_IN_ARABIC = 3999;
 
-    private static final HashMap<Integer, String> ARABIC_IN_ROMAN = new HashMap<>() {{
-        put(ROMAN_I, "I");
-        put(ROMAN_V, "V");
-        put(ROMAN_X, "X");
-        put(ROMAN_L, "L");
-        put(ROMAN_C, "C");
-        put(ROMAN_D, "D");
-        put(ROMAN_M, "M");
-    }};
+    private static final Map<Integer, String> ARABIC_IN_ROMAN = Map.of(
+        ROMAN_I, "I",
+        ROMAN_V, "V",
+        ROMAN_X, "X",
+        ROMAN_L, "L",
+        ROMAN_C, "C",
+        ROMAN_D, "D",
+        ROMAN_M, "M"
+    );
+
 
     public static String convertToRoman(int num) {
         if (num < MIN_ROMAN_NUMBER_IN_ARABIC || num > MAX_ROMAN_NUMBER_IN_ARABIC) {

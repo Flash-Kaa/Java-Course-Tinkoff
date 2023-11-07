@@ -1,5 +1,6 @@
 package edu.hw3;
 
+import edu.hw3.task7.Task7;
 import org.junit.jupiter.api.Test;
 import java.util.TreeMap;
 import static org.assertj.core.api.Assertions.assertThat;
