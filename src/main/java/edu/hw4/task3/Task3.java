@@ -1,5 +1,6 @@
-package edu.hw4;
+package edu.hw4.task3;
 
+import edu.hw4.Animal;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -12,11 +13,7 @@ public class Task3 {
         var map = new HashMap<Animal.Type, Integer>();
 
         for (var i : animals) {
-            if (!map.containsKey(i.type())) {
-                map.put(i.type(), 1);
-            } else {
-                map.replace(i.type(), map.get(i.type()) + 1);
-            }
+            map.put(i.type(), map.getOrDefault(i.type(), 0) + 1);
         }
 
         return map;

@@ -1,5 +1,6 @@
-package edu.hw4;
+package edu.hw4.task14;
 
+import edu.hw4.Animal;
 import java.util.List;
 
 public class Task14 {
@@ -7,6 +8,7 @@ public class Task14 {
     }
 
     public static Boolean haveDogWithHeightMoreK(List<Animal> animals, int k) {
-        return animals.stream().anyMatch(x -> x.type().equals(Animal.Type.DOG) && x.height() > k);
+        return animals.stream()
+            .anyMatch(x -> x.type().equals(Animal.Type.DOG) && x.height() > k);
     }
 }

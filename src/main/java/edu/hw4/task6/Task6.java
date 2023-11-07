@@ -1,5 +1,6 @@
-package edu.hw4;
+package edu.hw4.task6;
 
+import edu.hw4.Animal;
 import java.util.List;
 import java.util.Map;
 import java.util.stream.Collectors;

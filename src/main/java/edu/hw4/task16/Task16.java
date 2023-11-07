@@ -1,5 +1,6 @@
-package edu.hw4;
+package edu.hw4.task16;
 
+import edu.hw4.Animal;
 import java.util.Comparator;
 import java.util.List;
 

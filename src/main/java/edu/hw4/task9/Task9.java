@@ -1,5 +1,6 @@
-package edu.hw4;
+package edu.hw4.task9;
 
+import edu.hw4.Animal;
 import java.util.List;
 
 public class Task9 {

@@ -1,5 +1,6 @@
-package edu.hw4;
+package edu.hw4.task20;
 
+import edu.hw4.ValidationError;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.Set;
@@ -10,14 +11,15 @@ public class Task20 {
     }
 
     public static Map<String, String> getNamesAnimalsWithTheirErrorFields(Map<String, Set<ValidationError>> errors) {
-        var result = new HashMap<String, String>();
+        Map<String, String> result = new HashMap<>();
 
         for (var key : errors.keySet()) {
             var errorFields = errors.get(key)
                 .stream()
                 .map(x -> x
                     .message()
-                    .split(" ")[0])
+                    .split(" ")[0]
+                )
                 .collect(Collectors.joining(", "));
             result.put(key, errorFields);
         }

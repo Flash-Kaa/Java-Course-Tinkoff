@@ -1,5 +1,6 @@
-package edu.hw4;
+package edu.hw4.task11;
 
+import edu.hw4.Animal;
 import java.util.List;
 
 public class Task11 {
@@ -9,6 +10,8 @@ public class Task11 {
     }
 
     public static List<Animal> getListOfBigAnimalsWithBites(List<Animal> animals) {
-        return animals.stream().filter(x -> x.bites() && x.height() > MIN_HEIGHT_BIG_ANIMALS).toList();
+        return animals.stream()
+            .filter(x -> x.bites() && x.height() > MIN_HEIGHT_BIG_ANIMALS)
+            .toList();
     }
 }

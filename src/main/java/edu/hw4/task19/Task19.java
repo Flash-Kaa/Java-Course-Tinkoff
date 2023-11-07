@@ -1,5 +1,7 @@
-package edu.hw4;
+package edu.hw4.task19;
 
+import edu.hw4.Animal;
+import edu.hw4.ValidationError;
 import java.util.HashMap;
 import java.util.HashSet;
 import java.util.List;

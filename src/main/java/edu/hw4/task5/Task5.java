@@ -1,5 +1,6 @@
-package edu.hw4;
+package edu.hw4.task5;
 
+import edu.hw4.Animal;
 import java.util.List;
 
 public class Task5 {
@@ -7,10 +8,10 @@ public class Task5 {
     }
 
     public static Animal.Sex getSexOfMostAnimals(List<Animal> animals) {
-        var countSexM = 0;
-        var countSexF = 0;
+        int countSexM = 0;
+        int countSexF = 0;
 
-        for (var i : animals) {
+        for (Animal i : animals) {
             switch (i.sex()) {
                 case M -> countSexM++;
                 case F -> countSexF++;

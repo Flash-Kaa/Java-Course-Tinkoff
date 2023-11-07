@@ -3,6 +3,8 @@ package edu.hw4;
 import java.util.Arrays;
 import java.util.List;
 import java.util.stream.Stream;
+
+import edu.hw4.task2.Task2;
 import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.Arguments;
 import org.junit.jupiter.params.provider.MethodSource;

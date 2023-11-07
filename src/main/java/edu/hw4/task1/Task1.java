@@ -1,5 +1,7 @@
-package edu.hw4;
+package edu.hw4.task1;
 
+import edu.hw4.Animal;
+import java.util.Comparator;
 import java.util.List;
 
 public class Task1 {
@@ -9,6 +11,7 @@ public class Task1 {
     public static List<Animal> sortByHeight(List<Animal> animals) {
         return animals
             .stream()
-            .sorted((a, b) -> ((Integer) a.height()).compareTo(b.height())).toList();
+            .sorted(Comparator.comparingInt(Animal::height))
+            .toList();
     }
 }

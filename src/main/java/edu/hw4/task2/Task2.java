@@ -1,5 +1,6 @@
-package edu.hw4;
+package edu.hw4.task2;
 
+import edu.hw4.Animal;
 import java.util.List;
 
 public class Task2 {
@@ -9,7 +10,7 @@ public class Task2 {
     public static List<Animal> sortByWeightAndTakeKFirst(List<Animal> animals, int takeK) {
         return animals
             .stream()
-            .sorted((a, b) -> ((Integer) b.weight()).compareTo(a.weight()))
+            .sorted((a, b) -> Integer.compare(b.weight(), a.weight()))
             .limit(takeK)
             .toList();
     }

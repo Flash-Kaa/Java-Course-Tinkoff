@@ -1,5 +1,6 @@
-package edu.hw4;
+package edu.hw4.task12;
 
+import edu.hw4.Animal;
 import java.util.List;
 
 public class Task12 {
@@ -7,6 +8,8 @@ public class Task12 {
     }
 
     public static Integer getCountAnimalsWithWeightExceedingHeight(List<Animal> animals) {
-        return (int) animals.stream().filter(x -> x.weight() > x.height()).count();
+        return (int) animals.stream()
+            .filter(x -> x.weight() > x.height())
+            .count();
     }
 }

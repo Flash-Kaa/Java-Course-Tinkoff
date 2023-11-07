@@ -1,5 +1,6 @@
-package edu.hw4;
+package edu.hw4.task13;
 
+import edu.hw4.Animal;
 import java.util.List;
 
 public class Task13 {
@@ -7,6 +8,8 @@ public class Task13 {
     }
 
     public static List<Animal> getAnimalsWithNamesContainingMoreThanTwoWords(List<Animal> animals) {
-        return animals.stream().filter(x -> x.name().split(" ").length > 2).toList();
+        return animals.stream()
+            .filter(x -> x.name().split("\\s+").length > 2)
+            .toList();
     }
 }

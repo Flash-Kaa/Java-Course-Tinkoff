@@ -1,5 +1,6 @@
-package edu.hw4;
+package edu.hw4.task18;
 
+import edu.hw4.Animal;
 import java.util.Arrays;
 import java.util.Comparator;
 import java.util.List;
@@ -9,16 +10,13 @@ public class Task18 {
     }
 
     public static Animal getHeavestFish(List<Animal>... animalLists) {
-        Comparator<Animal> weightComparator =
-            (Animal x, Animal y) -> ((Integer) x.weight()).compareTo(y.weight());
-
         return Arrays.stream(animalLists)
             .map(x -> x.stream()
                 .filter(z -> z.type() == Animal.Type.FISH)
-                .max(weightComparator)
+                .max(Comparator.comparingInt(Animal::weight))
                 .get()
             )
-            .max(weightComparator)
+            .max(Comparator.comparingInt(Animal::weight))
             .get();
     }
 }
