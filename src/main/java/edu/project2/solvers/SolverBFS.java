@@ -9,26 +9,34 @@ import java.util.HashMap;
 import java.util.List;
 
 public class SolverBFS implements Solver {
+    private final static List<Coordinate> DIRECTIONS = List.of(
+        new Coordinate(1, 0),
+        new Coordinate(-1, 0),
+        new Coordinate(0, 1),
+        new Coordinate(0, -1)
+    );
+
     @Override
     public List<Coordinate> solve(Maze maze) {
         var next = new ArrayDeque<Coordinate>() {{
             push(maze.getStart());
         }};
         var pathToPoint = new HashMap<Coordinate, ArrayList<Coordinate>>() {{
-            put(maze.getStart(), new ArrayList(List.of(maze.getStart())));
+            put(maze.getStart(), new ArrayList<>(List.of(maze.getStart())));
         }};
 
         while (!next.isEmpty()) {
-            var currentCoordinate = next.poll();
+            Coordinate currentCoordinate = next.poll();
 
-            for (var dir : getDirections()) {
-                var curNeighborCoordinate = currentCoordinate.plus(dir);
+            for (Coordinate dir : DIRECTIONS) {
+                Coordinate curNeighborCoordinate = currentCoordinate.plus(dir);
 
                 if (maze.coordinateInBounds(curNeighborCoordinate) && maze.getCell(curNeighborCoordinate) == Cell.NONE
-                    && !pathToPoint.containsKey(curNeighborCoordinate)) {
+                    && !pathToPoint.containsKey(curNeighborCoordinate)
+                ) {
                     next.add(curNeighborCoordinate);
 
-                    var newList = (ArrayList) pathToPoint.get(currentCoordinate).clone();
+                    var newList = (ArrayList<Coordinate>) pathToPoint.get(currentCoordinate).clone();
                     newList.add(curNeighborCoordinate);
                     pathToPoint.put(curNeighborCoordinate, newList);
 
@@ -39,14 +47,5 @@ public class SolverBFS implements Solver {
             }
         }
         return List.of();
-    }
-
-    private List<Coordinate> getDirections() {
-        return List.of(
-            new Coordinate(1, 0),
-            new Coordinate(-1, 0),
-            new Coordinate(0, 1),
-            new Coordinate(0, -1)
-        );
     }
 }

@@ -12,6 +12,12 @@ public final class RecursiveBacktrackerGenerator implements Generator {
     private final static int MIN_COORDINATE = -2;
     private final static int MAX_COORDINATE = 2;
     private Cell[][] maze;
+    private final static List<Coordinate> DIRECTIONS = List.of(
+        new Coordinate(MAX_COORDINATE, 0),
+        new Coordinate(MIN_COORDINATE, 0),
+        new Coordinate(0, MAX_COORDINATE),
+        new Coordinate(0, MIN_COORDINATE)
+    );
 
     public RecursiveBacktrackerGenerator() {
         random = new Random();
@@ -33,8 +39,8 @@ public final class RecursiveBacktrackerGenerator implements Generator {
 
         generateFrom(new Coordinate(1, 1), height, width);
 
-        var start = new Coordinate(0, 1);
-        var end = new Coordinate(width - 1, height - 2);
+        Coordinate start = new Coordinate(0, 1);
+        Coordinate end = new Coordinate(width - 1, height - 2);
 
         maze[start.x()][start.y()] = Cell.NONE;
         maze[end.x()][end.y()] = Cell.NONE;
@@ -42,14 +48,15 @@ public final class RecursiveBacktrackerGenerator implements Generator {
     }
 
     private void generateFrom(Coordinate coord, int height, int width) {
-        var directions = new ArrayList<>(getDirections());
+        List<Coordinate> directions = new ArrayList<>(DIRECTIONS);
         shuffleArray(directions);
 
         for (var direction : directions) {
-            var next = coord.plus(direction);
+            Coordinate next = coord.plus(direction);
 
             if (next.x() > 0 && next.x() < width - 1 && next.y() > 0 && next.y() < height - 1
-                && maze[next.x()][next.y()] == Cell.WALL) {
+                && maze[next.x()][next.y()] == Cell.WALL
+            ) {
                 maze[next.x()][next.y()] = Cell.NONE;
                 maze[coord.x() + direction.x() / 2][coord.y() + direction.y() / 2] = Cell.NONE;
                 generateFrom(next, height, width);
@@ -57,22 +64,13 @@ public final class RecursiveBacktrackerGenerator implements Generator {
         }
     }
 
-    private void shuffleArray(ArrayList arr) {
+    private void shuffleArray(List<Coordinate> arr) {
         for (int firstIndex = arr.size() - 1; firstIndex > 0; firstIndex--) {
-            var secondIndex = random.nextInt(firstIndex + 1);
+            int secondIndex = random.nextInt(firstIndex + 1);
 
-            var temp = arr.get(firstIndex);
+            Coordinate temp = arr.get(firstIndex);
             arr.set(firstIndex, arr.get(secondIndex));
             arr.set(secondIndex, temp);
         }
-    }
-
-    private List<Coordinate> getDirections() {
-        return List.of(
-            new Coordinate(MAX_COORDINATE, 0),
-            new Coordinate(MIN_COORDINATE, 0),
-            new Coordinate(0, MAX_COORDINATE),
-            new Coordinate(0, MIN_COORDINATE)
-        );
     }
 }

@@ -13,23 +13,25 @@ public class CustomRenderer implements Render {
 
     @Override
     public String render(Maze maze, List<Coordinate> path) {
-        var sb = new StringBuilder();
-        sb.append("\n");
+        StringBuilder outputMaze = new StringBuilder();
+        outputMaze.append("\n");
 
         for (var y = 0; y < maze.getHeight(); y++) {
             for (var x = 0; x < maze.getWidth(); x++) {
-                sb.append(getCellSymbol(maze, new Coordinate(x, y), path));
+                outputMaze.append(getCellSymbol(maze, new Coordinate(x, y), path));
             }
-            sb.append("\n");
+            outputMaze.append("\n");
         }
 
-        return sb.toString();
+        return outputMaze.toString();
     }
 
     private String getCellSymbol(Maze maze, Coordinate coordinate, List<Coordinate> path) {
         if (path != null && path.contains(coordinate)) {
             return "**";
-        } else if (maze.getCell(coordinate.x(), coordinate.y()) == Cell.WALL) {
+        }
+
+        if (maze.getCell(coordinate.x(), coordinate.y()) == Cell.WALL) {
             return "██";
         }
 

@@ -8,8 +8,16 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 import java.util.PriorityQueue;
+import java.util.Queue;
 
 public class SolverAStar implements Solver {
+    private final static List<Coordinate> DIRECTIONS = List.of(
+        new Coordinate(1, 0),
+        new Coordinate(-1, 0),
+        new Coordinate(0, 1),
+        new Coordinate(0, -1)
+    );
+
     @Override
     public List<Coordinate> solve(Maze maze) {
         var width = maze.getWidth();
@@ -22,11 +30,11 @@ public class SolverAStar implements Solver {
             return List.of();
         }
 
-        var closedList = new boolean[width][height];
-        var cellDetails = new Node[width][height];
+        boolean[][] closedList = new boolean[width][height];
+        Node[][] cellDetails = new Node[width][height];
         cellDetails[start.x()][start.y()] = new Node(start, 0, 0);
 
-        var openList = new PriorityQueue<Details>((o1, o2) -> (int) Math.round(o1.value - o2.value)) {{
+        Queue<Details> openList = new PriorityQueue<>((o1, o2) -> (int) Math.round(o1.value - o2.value)) {{
             add(new Details(start, 0));
         }};
 
@@ -34,7 +42,7 @@ public class SolverAStar implements Solver {
             Details current = openList.poll();
             closedList[current.coordinate.x()][current.coordinate.y()] = true;
 
-            for (var direction : getDirections()) {
+            for (Coordinate direction : DIRECTIONS) {
                 Coordinate neighbour =
                     new Coordinate(
                         current.coordinate.x() + direction.x(),
@@ -69,7 +77,8 @@ public class SolverAStar implements Solver {
                     double fNew = gNew + neighbour.calculateDistance(end);
 
                     if (cellDetails[neighbour.x()][neighbour.y()].costEstimationToEnd == -1
-                        || cellDetails[neighbour.x()][neighbour.y()].costEstimationToEnd > fNew) {
+                        || cellDetails[neighbour.x()][neighbour.y()].costEstimationToEnd > fNew
+                    ) {
                         openList.add(new Details(neighbour, fNew));
 
                         cellDetails[neighbour.x()][neighbour.y()] = new Node(
@@ -85,15 +94,6 @@ public class SolverAStar implements Solver {
         return List.of();
     }
 
-    private List<Coordinate> getDirections() {
-        return List.of(
-            new Coordinate(1, 0),
-            new Coordinate(-1, 0),
-            new Coordinate(0, 1),
-            new Coordinate(0, -1)
-        );
-    }
-
     private boolean isValid(int width, int height, Coordinate point) {
         return point.x() >= 0 && point.x() < width && point.y() >= 0 && point.y() < height;
     }
@@ -103,13 +103,13 @@ public class SolverAStar implements Solver {
     }
 
     private List<Coordinate> tracePath(Node[][] nodes, Coordinate start, Coordinate end) {
-        var path = new ArrayDeque<Coordinate>() {{
+        Queue<Coordinate> path = new ArrayDeque<>() {{
             add(end);
         }};
 
-        var nextCell = nodes[end.x()][end.y()].coordinate;
-        var row = nextCell.x();
-        var col = nextCell.y();
+        Coordinate nextCell = nodes[end.x()][end.y()].coordinate;
+        int row = nextCell.x();
+        int col = nextCell.y();
 
         while (nodes[row][col].coordinate != nextCell) {
             path.add(new Coordinate(row, col));
@@ -117,10 +117,9 @@ public class SolverAStar implements Solver {
             row = nextCell.x();
             col = nextCell.y();
         }
-
         path.add(start);
 
-        var res = new ArrayList<>(path);
+        List<Coordinate> res = new ArrayList<>(path);
         Collections.reverse(res);
         return res;
     }
