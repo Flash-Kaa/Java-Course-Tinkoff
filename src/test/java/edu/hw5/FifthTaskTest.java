@@ -2,6 +2,8 @@ package edu.hw5;
 
 import java.util.regex.Pattern;
 import java.util.stream.Stream;
+
+import edu.hw5.task5.Task5;
 import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.Arguments;
 import org.junit.jupiter.params.provider.MethodSource;

@@ -1,4 +1,4 @@
-package edu.hw5;
+package edu.hw5.task6;
 
 import java.util.regex.Pattern;
 

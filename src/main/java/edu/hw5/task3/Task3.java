@@ -1,4 +1,4 @@
-package edu.hw5;
+package edu.hw5.task3;
 
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
@@ -7,24 +7,23 @@ import java.util.Arrays;
 import java.util.Optional;
 
 public class Task3 {
-    private Task3() {
-    }
-
     private final static DateTimeFormatter[] FORMATTERS = new DateTimeFormatter[] {
         DateTimeFormatter.ofPattern("yyyy-MM-dd"),
         DateTimeFormatter.ofPattern("dd-MM-yyyy"),
         DateTimeFormatter.ofPattern("dd-MM-yy")
     };
-
     private final static int COUNT_NUMBERS_IN_DATE = 3;
 
+    private Task3() {
+    }
+
     public static Optional<LocalDate> parseDate(String input) {
-        var inputForChange = input.replace("/", "-");
+        String inputForChange = input.replace("/", "-");
 
         if (inputForChange.contains("-")) {
-            var s = inputForChange.split("-");
-            if (s.length == COUNT_NUMBERS_IN_DATE && Arrays.stream(s).allMatch(x -> isInteger(x))) {
-                for (var i = 0; i < s.length; i++) {
+            String[] s = inputForChange.split("-");
+            if (s.length == COUNT_NUMBERS_IN_DATE && Arrays.stream(s).allMatch(Task3::isInteger)) {
+                for (int i = 0; i < s.length; i++) {
                     addZero(s, i);
                 }
 
@@ -69,7 +68,7 @@ public class Task3 {
     }
 
     private static boolean isInteger(String str) {
-        for (var i = 0; i < str.length(); i++) {
+        for (int i = 0; i < str.length(); i++) {
             if (!Character.isDigit(str.charAt(i))) {
                 return false;
             }
@@ -85,7 +84,8 @@ public class Task3 {
     }
 
     private static int getIntegerFromString(String input) {
-        var index = 0;
+        int index = 0;
+
         while (index < input.length() && Character.isDigit(input.charAt(index))) {
             index++;
         }
