@@ -3,11 +3,11 @@ package edu.hw3.task5;
 import java.util.Arrays;
 
 public class Task5 {
-    private Task5() {
-    }
-
     private static final String DECREASING = "DESC";
     private static final String INCREASING = "ASC";
+
+    private Task5() {
+    }
 
     public static Object[] parseContacts(String[] peoples, String order) {
         if (!order.equalsIgnoreCase(INCREASING)
@@ -30,11 +30,10 @@ public class Task5 {
             throw new IllegalArgumentException();
         }
 
-        var parts = line.split(" ");
-
+        var parts = line.split("\\s+");
         var sb = new StringBuilder();
 
-        for (var i = parts.length - 1; i >= 0; i--) {
+        for (int i = parts.length - 1; i >= 0; i--) {
             sb.append(parts[i]);
         }
 

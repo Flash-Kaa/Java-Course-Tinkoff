@@ -4,8 +4,8 @@ import java.util.Collection;
 import java.util.Iterator;
 import java.util.List;
 
-public class BackwardIterator<T> implements Iterator {
-    private List<T> list;
+public class BackwardIterator<T> implements Iterator<T> {
+    private final List<T> list;
     private int curIndex;
 
     public BackwardIterator(Collection<T> list) {
@@ -19,7 +19,7 @@ public class BackwardIterator<T> implements Iterator {
     }
 
     @Override
-    public Object next() {
+    public T next() {
         if (!hasNext()) {
             throw new IndexOutOfBoundsException();
         }

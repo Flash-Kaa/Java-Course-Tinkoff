@@ -1,13 +1,9 @@
 package edu.hw3.task4;
 
-import java.util.HashMap;
 import java.util.List;
-import java.util.*;
+import java.util.Map;
 
 public class Task4 {
-    private Task4() {
-    }
-
     private static final int ROMAN_I = 1;
     private static final int ROMAN_V = 5;
     private static final int ROMAN_X = 10;
@@ -28,6 +24,8 @@ public class Task4 {
         ROMAN_M, "M"
     );
 
+    private Task4() {
+    }
 
     public static String convertToRoman(int num) {
         if (num < MIN_ROMAN_NUMBER_IN_ARABIC || num > MAX_ROMAN_NUMBER_IN_ARABIC) {
@@ -35,7 +33,7 @@ public class Task4 {
         }
 
         StringBuilder result = new StringBuilder();
-        var romanDigitsInArabic = ARABIC_IN_ROMAN.keySet().stream().sorted().toList();
+        List<Integer> romanDigitsInArabic = ARABIC_IN_ROMAN.keySet().stream().sorted().toList();
         int index = romanDigitsInArabic.size() - 1;
         int numForChange = num;
 
