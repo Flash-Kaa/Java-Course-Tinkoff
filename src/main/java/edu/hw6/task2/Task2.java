@@ -1,23 +1,18 @@
-package edu.hw6;
+package edu.hw6.task2;
 
-import java.io.File;
-import java.io.FileWriter;
 import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Path;
-import java.nio.file.Paths;
 
 public class Task2 {
     private Task2() {
     }
 
-    public static void cloneFile(Path path) throws IOException {
-        if(Files.notExists(path)) {
+    public static void cloneFile(Path path) {
+        if (Files.notExists(path)) {
             throw new IllegalArgumentException();
         }
 
-        int copyNumber = 0;
-        Path copyPath = path;
         String fileName = path.getFileName().toString();
         String fileExtension = "";
 
@@ -27,17 +22,24 @@ public class Task2 {
             fileName = fileName.substring(0, extensionIndex);
         }
 
+        Path copyPath = path;
+        int copyNumber = 0;
+
         while (Files.exists(copyPath)) {
             copyNumber++;
-            String copyName = fileName + " — копия";
+            String copyName = fileName + " - копия";
             if (copyNumber > 1) {
                 copyName += " (" + copyNumber + ")";
             }
             copyName += fileExtension;
 
-            copyPath = Paths.get(path.getParent().toString(), copyName);
+            copyPath = path.resolveSibling(copyName);
         }
 
-        Files.copy(path, copyPath);
+        try {
+            Files.copy(path, copyPath);
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        }
     }
 }

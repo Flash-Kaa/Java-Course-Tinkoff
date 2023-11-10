@@ -1,22 +1,27 @@
-package edu.hw6;
+package edu.hw6.task1;
 
-import org.jetbrains.annotations.NotNull;
-import org.jetbrains.annotations.Nullable;
 import java.io.File;
-import java.io.FileReader;
+import java.io.FileInputStream;
 import java.io.FileWriter;
 import java.util.Collection;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.Set;
+import org.jetbrains.annotations.NotNull;
+import org.jetbrains.annotations.Nullable;
 
 public class DiskMap implements Map<String, String> {
     private final HashMap<String, String> map = new HashMap<>();
 
-    public DiskMap(String name) {
-        if (new File(name + ".txt").exists()) {
-            readFromFile(name);
+    public DiskMap(String nameFileRead) {
+        if (new File(nameFileRead).exists()) {
+            readFromFile(nameFileRead);
+        } else {
+            throw new RuntimeException("file not found");
         }
+    }
+
+    public DiskMap() {
     }
 
     @Override
@@ -84,8 +89,8 @@ public class DiskMap implements Map<String, String> {
     }
 
     public void writeToFile(String name) {
-        try (FileWriter writer = new FileWriter(name + ".txt")) {
-            for (var i : map.keySet()) {
+        try (FileWriter writer = new FileWriter(name)) {
+            for (String i : map.keySet()) {
                 writer.write(String.format("%s:%s\n", i, map.get(i)));
             }
         } catch (Exception e) {
@@ -94,22 +99,23 @@ public class DiskMap implements Map<String, String> {
     }
 
     private void readFromFile(String name) {
-        try (FileReader reader = new FileReader(name + ".txt")) {
-            var sb = new StringBuilder();
-            var character = reader.read();
+        try (FileInputStream reader = new FileInputStream(name)) {
+            StringBuilder sb = new StringBuilder();
+            byte[] bytes = reader.readAllBytes();
 
-            while (character != -1) {
-                sb.append((char) character);
-                character = reader.read();
+            char character;
+            for (int i = 0; i < bytes.length && bytes[i] > 0; i++) {
+                character = (char) bytes[i];
+                sb.append(character);
             }
 
-            var lines = sb.toString().split("\n");
-            for (var i : lines) {
+            String[] lines = sb.toString().split("\n");
+            for (String i : lines) {
                 if (i.isEmpty()) {
                     break;
                 }
 
-                var m = i.split(":");
+                String[] m = i.split(":");
                 map.put(m[0], m[1]);
             }
         } catch (Exception e) {
