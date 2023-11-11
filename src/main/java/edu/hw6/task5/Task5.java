@@ -54,8 +54,8 @@ public class Task5 {
     }
 
     private static String getBody(URI uri) {
-        var client = HttpClient.newHttpClient();
-        var request = HttpRequest.newBuilder()
+        HttpClient client = HttpClient.newHttpClient();
+        HttpRequest request = HttpRequest.newBuilder()
             .uri(uri)
             .build();
 
@@ -67,14 +67,4 @@ public class Task5 {
         }
     }
 
-    /*public static void main(String[] args) throws InterruptedException {
-        var a = new Thread(
-            () -> System.out.println(Arrays.toString(hackerNewsTopStories()))
-        );
-        var b = new Thread(() -> System.out.println(news(37570037)));
-        b.start();
-        a.start();
-        b.join();
-        a.join();
-    }*/
 }
