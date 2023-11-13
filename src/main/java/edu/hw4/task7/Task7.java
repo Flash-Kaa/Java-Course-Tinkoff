@@ -8,7 +8,10 @@ public class Task7 {
     private Task7() {
     }
 
+    // Kакое самое старое животное
     public static Animal getOldest(List<Animal> animals) {
-        return animals.stream().max(Comparator.comparingInt(Animal::age)).get();
+        return animals.stream()
+            .max(Comparator.comparingInt(Animal::age))
+            .get();
     }
 }

@@ -9,6 +9,7 @@ public class Task11 {
     private Task11() {
     }
 
+    // Список животных, которые могут укусить (bites == true) и рост которых превышает 100 см
     public static List<Animal> getListOfBigAnimalsWithBites(List<Animal> animals) {
         return animals.stream()
             .filter(x -> x.bites() && x.height() > MIN_HEIGHT_BIG_ANIMALS)

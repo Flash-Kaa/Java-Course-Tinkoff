@@ -10,6 +10,8 @@ public class Task20 {
     private Task20() {
     }
 
+    // Сделать результат предыдущего задания более читабельным:
+    // вернуть имя и названия полей с ошибками, объединенные в строку
     public static Map<String, String> getNamesAnimalsWithTheirErrorFields(Map<String, Set<ValidationError>> errors) {
         Map<String, String> result = new HashMap<>();
 
@@ -18,7 +20,7 @@ public class Task20 {
                 .stream()
                 .map(x -> x
                     .message()
-                    .split(" ")[0]
+                    .split("\\s+")[0]
                 )
                 .collect(Collectors.joining(", "));
             result.put(key, errorFields);

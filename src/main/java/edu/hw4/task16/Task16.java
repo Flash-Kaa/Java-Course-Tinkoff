@@ -8,6 +8,7 @@ public class Task16 {
     private Task16() {
     }
 
+    // Список животных, отсортированный по виду, затем по полу, затем по имени
     public static List<Animal> sortAnimalsBySpeciesGenderName(List<Animal> animals) {
         return animals.stream()
             .sorted(

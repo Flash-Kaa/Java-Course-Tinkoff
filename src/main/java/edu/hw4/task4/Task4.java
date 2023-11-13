@@ -8,7 +8,10 @@ public class Task4 {
     private Task4() {
     }
 
+    // У какого животного самое длинное имя
     public static Animal getAnimalWithLongestName(List<Animal> animals) {
-        return animals.stream().max(Comparator.comparing(Animal::name)).get();
+        return animals.stream()
+            .max(Comparator.comparing(Animal::name))
+            .get();
     }
 }

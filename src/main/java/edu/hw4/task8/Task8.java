@@ -8,6 +8,7 @@ public class Task8 {
     private Task8() {
     }
 
+    // Самое тяжелое животное среди животных ниже k см
     public static Animal getHeaviestAnimalAmongAnimalsBelowK(List<Animal> animals, int k) {
         return animals.stream()
             .filter(a -> a.height() < k)

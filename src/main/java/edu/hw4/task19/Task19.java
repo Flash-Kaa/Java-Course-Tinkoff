@@ -12,6 +12,7 @@ public class Task19 {
     private Task19() {
     }
 
+    // Животные, в записях о которых есть ошибки: вернуть имя и список ошибок
     public static Map<String, Set<ValidationError>> getNamesAnimalsWithExceptions(List<Animal> animals) {
         var result = new HashMap<String, Set<ValidationError>>();
 

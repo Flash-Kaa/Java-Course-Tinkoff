@@ -7,17 +7,15 @@ public class Task5 {
     private Task5() {
     }
 
+    // Каких животных больше: самцов или самок
     public static Animal.Sex getSexOfMostAnimals(List<Animal> animals) {
-        int countSexM = 0;
-        int countSexF = 0;
+        long countSexM = animals.stream()
+            .filter(x -> x.sex() == Animal.Sex.M)
+            .count();
 
-        for (Animal i : animals) {
-            switch (i.sex()) {
-                case M -> countSexM++;
-                case F -> countSexF++;
-                default -> throw new RuntimeException();
-            }
-        }
+        long countSexF = animals.stream()
+            .filter(x -> x.sex() == Animal.Sex.F)
+            .count();
 
         return countSexM >= countSexF ? Animal.Sex.M : Animal.Sex.F;
     }

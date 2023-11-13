@@ -8,6 +8,7 @@ public class Task1 {
     private Task1() {
     }
 
+    // Отсортировать животных по росту от самого маленького к самому большому
     public static List<Animal> sortByHeight(List<Animal> animals) {
         return animals
             .stream()
