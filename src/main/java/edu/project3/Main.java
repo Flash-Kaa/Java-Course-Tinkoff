@@ -10,43 +10,28 @@ import edu.project3.statistics.Statistics;
 import edu.project3.statistics.StatusCodesCountInfo;
 import edu.project3.statistics.UserAgentCountInfo;
 import edu.project3.terminal.Terminal;
+import edu.project3.terminal.TerminalRequest;
 import java.util.ArrayList;
+import java.util.List;
 
 public class Main {
+    private Main() {
+    }
+
     public static void main(String[] args) {
-        var t1 = Terminal.expectRequest();
-        /*var read = new ReaderHTTP().read(t1.uri());
-        var list = LoggerParser.parse(read);
-        var filter = new Filter(list);
-        var filteredList = filter.betweenDates(t1.filterFrom(), t1.filterTo()).toList();
-
-        //java -jar nginx-log-stats.jar --path https://raw.githubusercontent.com/elastic/examples/master/Common%20Data%20Formats/nginx_logs/nginx_logs --from 2015-06-01 --format adoc
-
-        var sb = new StringBuilder();*/
-
-        var l = new ArrayList<Statistics>(){{
+        List<Statistics> needStatistics = new ArrayList<>() {{
             add(new GeneralInfo());
             add(new ResourcesCountInfo());
             add(new StatusCodesCountInfo());
             add(new ClientMemoryInfo());
             add(new RequestMethodCountInfo());
-            add(new ClientRequestCountInfo());
-            add(new UserAgentCountInfo());
             add(new PopularHourInfo());
+            add(new UserAgentCountInfo());
+            add(new ClientRequestCountInfo());
         }};
 
-        var a = new LoggerAnalyzer(t1, l);
-        Terminal.getLogger().info(a.getAnalysis());
-
-        /*for(var i : l) {
-            i.setAndCalculateData(t1, filteredList);
-        }
-
-        for(var i : l) {
-            sb.append("\n\n")
-                .append(i.getTitle())
-                .append(i.getTable());
-        }
-        Terminal.getLogger().info(sb.toString());*/
+        TerminalRequest request = Terminal.expectRequest();
+        LoggerAnalyzer analyzer = new LoggerAnalyzer(request, needStatistics);
+        Terminal.getLogger().info(analyzer.getAnalysis());
     }
 }

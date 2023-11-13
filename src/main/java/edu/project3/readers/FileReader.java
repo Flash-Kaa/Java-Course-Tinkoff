@@ -1,10 +1,9 @@
 package edu.project3.readers;
 
-import java.io.File;
 import java.io.FileInputStream;
 import java.net.URI;
 
-public class FileReader implements ReaderURI{
+public class FileReader implements ReaderURI {
     @Override
     public String read(URI uri) {
         byte[] bytes;
@@ -15,7 +14,7 @@ public class FileReader implements ReaderURI{
             throw new RuntimeException(e);
         }
 
-        var sb = new StringBuilder();
+        StringBuilder sb = new StringBuilder();
         char character;
 
         for (int i = 0; i < bytes.length && bytes[i] > 0; i++) {

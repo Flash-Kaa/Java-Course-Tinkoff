@@ -1,5 +1,6 @@
 package edu.project3.terminal;
 
+import java.io.InputStream;
 import java.net.URI;
 import java.net.URISyntaxException;
 import java.time.LocalDate;
@@ -11,8 +12,9 @@ import org.apache.logging.log4j.Logger;
 
 public class Terminal {
     private final static Logger LOGGER = LogManager.getLogger();
-    private final static Scanner SCANNER = new Scanner(System.in);
     private final static DateTimeFormatter DATE_FORMATTER = DateTimeFormatter.ofPattern("yyyy-MM-dd");
+    private final static int START_COMMANDS_COUNT = 4;
+    private static Scanner scanner = new Scanner(System.in);
 
     private Terminal() {
     }
@@ -21,19 +23,22 @@ public class Terminal {
         return LOGGER;
     }
 
+    public static void setInputStream(InputStream inputStream) {
+        scanner = new Scanner(inputStream);
+    }
+
     public static TerminalRequest expectRequest() {
         while (true) {
-            String request = SCANNER.nextLine();
-
-            String[] commands = request.split(" ");
+            String request = scanner.nextLine();
+            String[] commands = request.split("\\s+");
 
             if (!firstCommandsCorrectness(commands)) {
                 continue;
             }
 
-            int curInd = 4;
-            URI uri;
+            int curInd = START_COMMANDS_COUNT;
 
+            URI uri;
             try {
                 uri = new URI(commands[curInd++]);
             } catch (URISyntaxException e) {
@@ -41,41 +46,27 @@ public class Terminal {
                 continue;
             }
 
-            LocalDate from = null;
-            LocalDate to = null;
-
-            if (curInd < commands.length - 1 && commands[curInd].equals("--from")) {
-                curInd++;
-                try {
-                    from = LocalDate.parse(commands[curInd++], DATE_FORMATTER);
-                } catch (DateTimeParseException e) {
-                    LOGGER.error(String.format("Incorrect date '%s'", commands[curInd - 1]));
-                    continue;
-                }
+            LocalDate from = getDate(commands, "--from", curInd);
+            if (from == LocalDate.MAX) {
+                continue;
+            } else if (from != null) {
+                curInd += 2;
             }
 
-            if (curInd < commands.length - 1 && commands[curInd].equals("--to")) {
-                curInd++;
-                try {
-                    to = LocalDate.parse(commands[curInd++], DATE_FORMATTER);
-                } catch (DateTimeParseException e) {
-                    LOGGER.error(String.format("Incorrect date '%s'", commands[curInd - 1]));
-                    continue;
-                }
+            LocalDate to = getDate(commands, "--to", curInd);
+            if (to == LocalDate.MAX) {
+                continue;
+            } else if (to != null) {
+                curInd += 2;
             }
 
             TerminalRequest.ResultFormat format = null;
-
             if (curInd < commands.length - 1 && commands[curInd].equals("--format")) {
                 curInd++;
-                var formatStr = commands[curInd++].toLowerCase();
-
-                if (formatStr.equals("markdown")) {
-                    format = TerminalRequest.ResultFormat.MARKDOWN;
-                } else if (formatStr.equals("adoc")) {
-                    format = TerminalRequest.ResultFormat.ADOC;
-                } else {
-                    LOGGER.error(String.format("Incorrect format '%s'", formatStr));
+                try {
+                    format = Enum.valueOf(TerminalRequest.ResultFormat.class, commands[curInd++].toUpperCase());
+                } catch (IllegalArgumentException e) {
+                    LOGGER.error(String.format("Incorrect format '%s'", commands[curInd - 1]));
                     continue;
                 }
             }
@@ -90,7 +81,7 @@ public class Terminal {
     }
 
     private static boolean firstCommandsCorrectness(String[] command) {
-        if (command.length < 5) {
+        if (command.length < START_COMMANDS_COUNT + 1) {
             LOGGER.error("Incorrect command count");
             return false;
         }
@@ -101,6 +92,21 @@ public class Terminal {
             && checkCommand(command[curInd++], "-jar")
             && checkCommand(command[curInd++], "nginx-log-stats.jar")
             && checkCommand(command[curInd], "--path");
+    }
+
+    private static LocalDate getDate(String[] commands, String equals, int index) {
+        int ind = index;
+        if (ind < commands.length - 1 && commands[ind].equals(equals)) {
+            ind++;
+            try {
+                return LocalDate.parse(commands[ind++], DATE_FORMATTER);
+            } catch (DateTimeParseException e) {
+                LOGGER.error(String.format("Incorrect date '%s'", commands[ind - 1]));
+                return LocalDate.MAX;
+            }
+        }
+
+        return null;
     }
 
     private static boolean checkCommand(String actual, String expected) {

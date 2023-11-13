@@ -5,7 +5,7 @@ import java.net.http.HttpClient;
 import java.net.http.HttpRequest;
 import java.net.http.HttpResponse;
 
-public class ReaderHTTP implements ReaderURI{
+public class ReaderHTTP implements ReaderURI {
     @Override
     public String read(URI uri) {
         HttpClient client = HttpClient.newHttpClient();

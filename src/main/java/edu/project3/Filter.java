@@ -16,8 +16,9 @@ public class Filter {
             return delegate;
         }
 
-        return delegate.filter(entry -> {
-                var date = entry.dateTime().toLocalDate();
+        return delegate.filter(
+            entry -> {
+                LocalDate date = entry.dateTime().toLocalDate();
                 return date.isAfter(minDate) || date.isEqual(minDate);
             }
         );
@@ -28,8 +29,9 @@ public class Filter {
             return delegate;
         }
 
-        return delegate.filter(entry -> {
-                var date = entry.dateTime().toLocalDate();
+        return delegate.filter(
+            entry -> {
+                LocalDate date = entry.dateTime().toLocalDate();
                 return date.isBefore(maxDate) || date.isEqual(maxDate);
             }
         );
@@ -38,12 +40,13 @@ public class Filter {
     public Stream<Request> betweenDates(LocalDate minDate, LocalDate maxDate) {
         if (minDate == null) {
             return maxDate(maxDate);
-        } else if(maxDate == null) {
+        } else if (maxDate == null) {
             return minDate(minDate);
         }
 
-        return delegate.filter(entry -> {
-                var date = entry.dateTime().toLocalDate();
+        return delegate.filter(
+            entry -> {
+                LocalDate date = entry.dateTime().toLocalDate();
                 return (date.isAfter(minDate) || date.isEqual(minDate))
                     && (date.isBefore(maxDate) || date.isEqual(maxDate));
             }

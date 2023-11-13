@@ -7,7 +7,11 @@ import java.util.ArrayList;
 import java.util.List;
 
 public abstract class Statistics {
-    protected final List<Pair> table = new ArrayList<>();
+    protected final List<Pair> table;
+
+    public Statistics() {
+        table = new ArrayList<>();
+    }
 
     public abstract void setAndCalculateData(TerminalRequest terminalRequest, List<Request> list);
 
@@ -24,13 +28,15 @@ public abstract class Statistics {
             .max(Integer::compareTo)
             .get();
 
-        var sb = new StringBuilder();
-        var head = table.get(0);
+        StringBuilder sb = new StringBuilder();
+        Pair head = table.get(0);
 
         sb.append("\n")
             .append(head.first())
             .append(" ".repeat(len1 - head.first().length()))
-            .append(String.format("|%s\n", head.second()));
+            .append("|")
+            .append(head.second())
+            .append("\n");
 
         sb.append("-".repeat(len1 - 1))
             .append(":|:")
@@ -40,7 +46,9 @@ public abstract class Statistics {
         for (var i = 1; i < table.size(); i++) {
             sb.append(table.get(i).first())
                 .append(" ".repeat(len1 - table.get(i).first().length()))
-                .append(String.format("|%s\n", table.get(i).second()));
+                .append("|")
+                .append(table.get(i).second())
+                .append("\n");
         }
 
         return sb.toString();
