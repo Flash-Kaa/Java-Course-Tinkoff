@@ -2,13 +2,13 @@ package edu.hw7.task3.task35;
 
 import edu.hw7.task3.Person;
 import edu.hw7.task3.PersonDatabase;
-import org.jetbrains.annotations.Nullable;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.concurrent.locks.Lock;
 import java.util.concurrent.locks.ReadWriteLock;
 import java.util.concurrent.locks.ReentrantReadWriteLock;
 import java.util.function.Predicate;
+import org.jetbrains.annotations.Nullable;
 
 public class PersonDBWithRWLock implements PersonDatabase {
     private final Map<Integer, Person> database = new HashMap<>();

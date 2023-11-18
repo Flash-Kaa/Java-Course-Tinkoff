@@ -2,12 +2,15 @@ package edu.hw7.task4;
 
 import java.security.SecureRandom;
 import java.util.List;
-import java.util.concurrent.ExecutionException;
 import java.util.concurrent.FutureTask;
-import java.util.concurrent.atomic.AtomicReference;
 import java.util.stream.Stream;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 
 public class Task4 {
+    private final static double PARTS_COUNT = 4;
+    private final static Logger LOGGER = LogManager.getLogger();
+
     private Task4() {
     }
 
@@ -24,15 +27,15 @@ public class Task4 {
             }
         }
 
-        return 4.0 * circleCount / n;
+        return PARTS_COUNT * circleCount / n;
     }
 
     public static double calculatePiMultiThread(int n, int totalThreadCount) {
-        FutureTask<Double> r = new FutureTask<>(
+        FutureTask<Double> task = new FutureTask<>(
             () -> calculatePi(n / totalThreadCount)
         );
 
-        List<FutureTask<Double>> threads = Stream.generate(() -> r)
+        List<FutureTask<Double>> threads = Stream.generate(() -> task)
             .limit(totalThreadCount)
             .peek(x -> new Thread(x).start())
             .toList();
@@ -46,24 +49,24 @@ public class Task4 {
                         throw new RuntimeException(e);
                     }
                 }
-            ).reduce(0.0, Double::sum);
+            ).reduce(0.0, Double::sum) / totalThreadCount;
     }
 
     public static void getAndPrintTimeStatistics(int n, int maxThreadsCount, int testCount) {
-        String[] t = getTimeStatistics(n, maxThreadsCount, testCount);
-        for (var i = 0; i < t.length; i++) {
-            System.out.println((i + 1) + " : " + t[i]);
+        String[] statistics = getTimeStatistics(n, maxThreadsCount, testCount);
+        for (int i = 0; i < statistics.length; i++) {
+            LOGGER.info((i + 1) + " : " + statistics[i]);
         }
     }
 
     private static String[] getTimeStatistics(int n, int maxThreadsCount, int testCount) {
         String[] results = new String[maxThreadsCount];
 
-        for (var i = 0; i < maxThreadsCount; i++) {
+        for (int i = 0; i < maxThreadsCount; i++) {
             System.gc();
             long start = System.nanoTime();
             double resSumPI = 0;
-            for(int j = 0; j < testCount; j++) {
+            for (int j = 0; j < testCount; j++) {
                 resSumPI += calculatePiMultiThread(n, i + 1);
             }
 
@@ -73,9 +76,5 @@ public class Task4 {
         }
 
         return results;
-    }
-
-    public static void main(String[] args) {
-        getAndPrintTimeStatistics(1000000, 50, 5);
     }
 }

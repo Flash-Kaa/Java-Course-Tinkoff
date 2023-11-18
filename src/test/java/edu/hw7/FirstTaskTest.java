@@ -1,10 +1,9 @@
 package edu.hw7;
 
 import edu.hw7.task1.AtomicCounter;
-import org.junit.jupiter.api.Test;
-import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Stream;
+import org.junit.jupiter.api.Test;
 import static org.assertj.core.api.Assertions.assertThat;
 
 public class FirstTaskTest {
@@ -17,11 +16,10 @@ public class FirstTaskTest {
         int threadsCount = 100;
         int incrementsInThreadCount = 100000;
 
-
         for (int i = 0; i < testCount; i++) {
             AtomicCounter counter = new AtomicCounter();
             Runnable r = () -> {
-                for(var j = 0; j < incrementsInThreadCount; j++) {
+                for (var j = 0; j < incrementsInThreadCount; j++) {
                     counter.increment();
                 }
             };
@@ -31,8 +29,7 @@ public class FirstTaskTest {
                 .peek(Thread::start)
                 .toList();
 
-
-            for(var j : l) {
+            for (var j : l) {
                 try {
                     j.join();
                 } catch (InterruptedException e) {

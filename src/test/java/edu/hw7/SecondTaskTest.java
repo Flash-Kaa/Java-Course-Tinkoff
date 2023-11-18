@@ -1,9 +1,8 @@
 package edu.hw7;
 
 import edu.hw7.task2.Task2;
-import org.assertj.core.internal.IntArrays;
-import org.junit.jupiter.api.Test;
 import java.math.BigInteger;
+import org.junit.jupiter.api.Test;
 import static org.assertj.core.api.Assertions.assertThat;
 
 public class SecondTaskTest {
@@ -18,7 +17,7 @@ public class SecondTaskTest {
         factorialResults[0] = BigInteger.valueOf(1);
         assertThat(Task2.getFactorial((byte) 1)).isEqualTo(factorialResults[0]);
 
-        for(var i = 2; i <= toFactorial; i++) {
+        for (var i = 2; i <= toFactorial; i++) {
             factorialResults[i - 1] = BigInteger.valueOf(i).multiply(factorialResults[i - 2]);
 
             assertThat(Task2.getFactorial((byte) i)).isEqualTo(factorialResults[i - 1]);

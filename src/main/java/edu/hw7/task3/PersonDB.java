@@ -1,12 +1,11 @@
 package edu.hw7.task3;
 
-import org.jetbrains.annotations.Nullable;
 import java.util.HashMap;
-import java.util.Map;
 import java.util.function.Predicate;
+import org.jetbrains.annotations.Nullable;
 
-public class PersonDB implements PersonDatabase{
-    private final Map<Integer, Person> database = new HashMap<>();
+public class PersonDB implements PersonDatabase {
+    private final HashMap<Integer, Person> database = new HashMap<>();
 
     @Override
     public void add(Person person) {

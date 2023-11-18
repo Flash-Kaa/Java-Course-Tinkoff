@@ -2,7 +2,6 @@ package edu.hw7.task2;
 
 import java.math.BigInteger;
 import java.util.stream.LongStream;
-import java.util.stream.Stream;
 
 public class Task2 {
     private Task2() {
