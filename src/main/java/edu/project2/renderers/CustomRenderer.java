@@ -14,7 +14,7 @@ public class CustomRenderer implements Render {
     @Override
     public String render(Maze maze, List<Coordinate> path) {
         StringBuilder outputMaze = new StringBuilder();
-        outputMaze.append("\n");
+        outputMaze.append(System.lineSeparator());
 
         for (var y = 0; y < maze.getHeight(); y++) {
             for (var x = 0; x < maze.getWidth(); x++) {
