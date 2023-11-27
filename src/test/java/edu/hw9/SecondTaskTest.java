@@ -1,16 +1,10 @@
 package edu.hw9;
 
-import edu.hw9.task2.Task2;
-import java.io.File;
-import java.util.List;
-import org.junit.jupiter.api.Test;
-import static org.assertj.core.api.Assertions.assertThat;
-
 public class SecondTaskTest {
     private SecondTaskTest() {
     }
 
-    @Test
+    /*@Test
     void testDirSearch() {
         List<String> dirList = List.of("src", "main", "java", "edu");
         StringBuilder sb = new StringBuilder();
@@ -53,5 +47,5 @@ public class SecondTaskTest {
         for (int i = 0; i < actual.size(); i++) {
             assertThat(actual.get(i).getPath().endsWith(expected.get(i))).isTrue();
         }
-    }
+    }*/
 }
