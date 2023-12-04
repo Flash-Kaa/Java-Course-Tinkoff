@@ -8,7 +8,7 @@ public class Task1 {
     private final static int MINUTES_IN_HOUR = 60;
     private final static int DATE_INDEX = 0;
     private final static int TIME_INDEX = 1;
-    private final static int HOUR_INDEX = 1;
+    private final static int HOUR_INDEX = 0;
     private final static int MINUTE_INDEX = 1;
     private final static int DAY_INDEX = 2;
 
