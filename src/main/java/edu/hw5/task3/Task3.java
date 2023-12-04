@@ -13,6 +13,10 @@ public class Task3 {
         DateTimeFormatter.ofPattern("dd-MM-yy")
     };
     private final static int COUNT_NUMBERS_IN_DATE = 3;
+    private final static String TODAY = "today";
+    private final static String TOMORROW = "tomorrow";
+    private final static String YESTERDAY = "yesterday";
+    private final static String AGO = "ago";
 
     private Task3() {
     }
@@ -41,17 +45,17 @@ public class Task3 {
         Optional<LocalDate> result = Optional.empty();
 
         switch (input) {
-            case "today":
+            case TODAY:
                 result = Optional.of(LocalDate.now());
                 break;
-            case "tomorrow":
+            case TOMORROW:
                 result = Optional.of(LocalDate.now().plusDays(1));
                 break;
-            case "yesterday":
+            case YESTERDAY:
                 result = Optional.of(LocalDate.now().minusDays(1));
                 break;
             default:
-                if (inputForChange.endsWith("ago")) {
+                if (inputForChange.endsWith(AGO)) {
                     result = Optional.of(LocalDate.now().minusDays(getIntegerFromString(inputForChange)));
                 }
         }

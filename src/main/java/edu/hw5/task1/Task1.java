@@ -6,17 +6,27 @@ import java.util.List;
 
 public class Task1 {
     private final static int MINUTES_IN_HOUR = 60;
+    private final static int DATE_INDEX = 0;
+    private final static int TIME_INDEX = 1;
+    private final static int HOUR_INDEX = 1;
+    private final static int MINUTE_INDEX = 1;
+    private final static int DAY_INDEX = 2;
 
     private Task1() {
     }
 
     public static LocalTime calculateAverageSessionDurationInMinutes(List<String> sessions) {
-        long averageTimeInMinutes = sessions.stream().reduce(0L, (acc, session) -> {
-            String[] time = session.split(" - ");
-            return acc + getDuration(time[1])
-                .minus(getDuration(time[0]))
-                .toMinutes();
-        }, Long::sum) / sessions.size();
+        long averageTimeInMinutes = sessions.stream()
+            .reduce(
+                0L,
+                (acc, session) -> {
+                    String[] time = session.split(" - ");
+                    return acc + getDuration(time[1])
+                        .minus(getDuration(time[0]))
+                        .toMinutes();
+                },
+                Long::sum
+            ) / sessions.size();
 
         return LocalTime.of(
             (int) (averageTimeInMinutes / MINUTES_IN_HOUR),
@@ -24,13 +34,13 @@ public class Task1 {
         );
     }
 
-    private static Duration getDuration(String datetime) {
-        String[] dt = datetime.split(", ");
-        String[] date = dt[0].split("-");
-        String[] time = dt[1].split(":");
+    private static Duration getDuration(String dateTime) {
+        String[] dt = dateTime.split(", ");
+        String[] date = dt[DATE_INDEX].split("-");
+        String[] time = dt[TIME_INDEX].split(":");
 
-        return Duration.ofDays(Integer.parseInt(date[2]))
-            .plusHours(Integer.parseInt(time[0]))
-            .plusMinutes(Integer.parseInt(time[1]));
+        return Duration.ofDays(Integer.parseInt(date[DAY_INDEX]))
+            .plusHours(Integer.parseInt(time[HOUR_INDEX]))
+            .plusMinutes(Integer.parseInt(time[MINUTE_INDEX]));
     }
 }
