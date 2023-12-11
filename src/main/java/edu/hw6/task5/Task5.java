@@ -1,5 +1,6 @@
 package edu.hw6.task5;
 
+import java.io.IOException;
 import java.net.URI;
 import java.net.URISyntaxException;
 import java.net.http.HttpClient;
@@ -54,17 +55,15 @@ public class Task5 {
     }
 
     private static String getBody(URI uri) {
-        HttpClient client = HttpClient.newHttpClient();
-        HttpRequest request = HttpRequest.newBuilder()
-            .uri(uri)
-            .build();
+        try (HttpClient client = HttpClient.newHttpClient()) {
+            HttpRequest request = HttpRequest.newBuilder()
+                .uri(uri)
+                .build();
 
-        try {
-            var response = client.send(request, HttpResponse.BodyHandlers.ofString());
+            HttpResponse<String> response = client.send(request, HttpResponse.BodyHandlers.ofString());
             return response.body();
-        } catch (Exception e) {
-            throw new RuntimeException(e.getMessage());
+        } catch (IOException | InterruptedException e) {
+            throw new RuntimeException(e);
         }
     }
-
 }

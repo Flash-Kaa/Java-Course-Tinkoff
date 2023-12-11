@@ -24,12 +24,10 @@ public class FirstTaskTest {
             put("tacbc", "no");
         }};
 
-        DiskMap createdMap = new DiskMap();
+        DiskMap createdMap = new DiskMap(fileName);
         for (var i : myMap.keySet()) {
             createdMap.put(i, myMap.get(i));
         }
-
-        createdMap.writeToFile(fileName);
 
         // try delete object
         createdMap = null;
