@@ -1,7 +1,12 @@
 package edu.hw8.task2;
 
 public class Fibonacci {
+    private static FixedThreadPool tp;
     private Fibonacci() {
+    }
+
+    public static void stopTP() {
+        tp.close();
     }
 
     public static void getFirstNumbers(int n, int threadsCount, int[] result) {
@@ -9,8 +14,7 @@ public class Fibonacci {
             throw new IllegalArgumentException();
         }
 
-        FixedThreadPool tp = new FixedThreadPool();
-        tp.create(threadsCount);
+        tp = new FixedThreadPool(threadsCount);
 
         for (int i = 0; i < n; i++) {
             int finalI = i;

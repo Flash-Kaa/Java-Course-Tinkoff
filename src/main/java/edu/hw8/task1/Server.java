@@ -21,7 +21,7 @@ public class Server implements Runnable {
                 executorService.submit(new ClientHandler(clientSocket));
             }
         } catch (Exception e) {
-            throw new RuntimeException(Arrays.toString(e.getStackTrace()));
+            throw new RuntimeException(e);
         }
     }
 }

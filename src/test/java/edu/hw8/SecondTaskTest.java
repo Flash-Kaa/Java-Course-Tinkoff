@@ -35,10 +35,11 @@ public class SecondTaskTest {
         Fibonacci.getFirstNumbers(expected.length, threadsCount, res);
 
         try {
-            Thread.sleep(1000);
+            Thread.sleep(10);
         } catch (InterruptedException e) {
             throw new RuntimeException(e);
         }
         assertThat(res).isEqualTo(expected);
+        Fibonacci.stopTP();
     }
 }

@@ -1,57 +1,45 @@
 package edu.hw8.task2;
 
-import java.util.concurrent.LinkedBlockingQueue;
-import java.util.concurrent.atomic.AtomicInteger;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Queue;
+import java.util.concurrent.ConcurrentLinkedQueue;
 
-public class FixedThreadPool implements ThreadPool {
-    private AtomicInteger freeThreads;
-    private LinkedBlockingQueue<Runnable> queue;
+public class FixedThreadPool {
+    private final Queue<Runnable> queue = new ConcurrentLinkedQueue<>();
+    private final List<Thread> threads = new ArrayList<>();
 
-    public void create(int threadsCount) {
-        if (freeThreads != null) {
-            throw new IllegalArgumentException();
+    public FixedThreadPool(int maxThreadCount) {
+        for (int i = 0; i < maxThreadCount; i++) {
+            Thread thread = new Thread(new TaskWorker());
+            threads.add(thread);
+            thread.start();
         }
-
-        freeThreads = new AtomicInteger(threadsCount);
-        queue = new LinkedBlockingQueue<>();
     }
 
-    @Override
-    public void start() {
-    }
-
-    @Override
     public void execute(Runnable runnable) {
-        Thread thread = new Thread(
-            () -> {
-                runnable.run();
-                synchronized (queue) {
-                    if (queue == null) {
-                        return;
-                    }
+        queue.add(runnable);
+    }
 
-                    while (!queue.isEmpty()) {
-                        queue.poll().run();
-                    }
+    public void close() {
+        for(Thread t : threads) {
+            t.interrupt();
+        }
+    }
+
+    private final class TaskWorker implements Runnable {
+        @Override
+        public void run() {
+            while (true) {
+                Runnable task = queue.poll();
+                if (task != null) {
+                    task.run();
                 }
 
-                freeThreads.incrementAndGet();
-            }
-        );
-
-        synchronized (freeThreads) {
-            if (freeThreads.get() > 0) {
-                freeThreads.decrementAndGet();
-                thread.start();
-            } else {
-                queue.add(thread);
+                if(Thread.currentThread().isInterrupted()) {
+                    break;
+                }
             }
         }
-    }
-
-    @Override
-    public void close() {
-        freeThreads = null;
-        queue = null;
     }
 }
