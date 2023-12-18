@@ -2,6 +2,7 @@ package edu.hw8.task2;
 
 public class Fibonacci {
     private static FixedThreadPool tp;
+
     private Fibonacci() {
     }
 

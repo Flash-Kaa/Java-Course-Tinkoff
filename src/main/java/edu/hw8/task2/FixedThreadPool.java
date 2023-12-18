@@ -22,21 +22,20 @@ public class FixedThreadPool {
     }
 
     public void close() {
-        for(Thread t : threads) {
+        for (Thread t : threads) {
             t.interrupt();
         }
     }
 
     private final class TaskWorker implements Runnable {
-        @Override
-        public void run() {
+        @Override public void run() {
             while (true) {
                 Runnable task = queue.poll();
                 if (task != null) {
                     task.run();
                 }
 
-                if(Thread.currentThread().isInterrupted()) {
+                if (Thread.currentThread().isInterrupted()) {
                     break;
                 }
             }
