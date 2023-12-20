@@ -2,11 +2,11 @@ package edu.hw8.task2;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Queue;
-import java.util.concurrent.ConcurrentLinkedQueue;
+import java.util.concurrent.BlockingQueue;
+import java.util.concurrent.LinkedBlockingQueue;
 
 public class FixedThreadPool {
-    private final Queue<Runnable> queue = new ConcurrentLinkedQueue<>();
+    private final BlockingQueue<Runnable> queue = new LinkedBlockingQueue<>();
     private final List<Thread> threads = new ArrayList<>();
 
     public FixedThreadPool(int maxThreadCount) {
@@ -29,14 +29,10 @@ public class FixedThreadPool {
 
     private final class TaskWorker implements Runnable {
         @Override public void run() {
-            while (true) {
-                Runnable task = queue.poll();
-                if (task != null) {
-                    task.run();
-                }
-
-                if (Thread.currentThread().isInterrupted()) {
-                    break;
+            while (!Thread.currentThread().isInterrupted()) {
+                try {
+                    queue.take().run();
+                } catch (InterruptedException e) {
                 }
             }
         }
