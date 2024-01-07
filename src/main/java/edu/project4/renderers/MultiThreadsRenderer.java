@@ -45,10 +45,7 @@ public class MultiThreadsRenderer {
                 double d = rand.nextDouble(MIN_COEFFICIENT, MAX_COEFFICIENT);
                 double e = rand.nextDouble(MIN_COEFFICIENT, MAX_COEFFICIENT);
 
-                if (a * a + d * d < 1
-                    && b * b + e * e < 1
-                    && a * a + b * b + d * d + e * e < 1 + (a * e - b * d) * (a * e - b * d)
-                ) {
+                if (Renderer.isAppropriateCoefficients(a, b, d, e)) {
                     double c = rand.nextDouble(-1, 1);
                     double f = rand.nextDouble(-1, 1);
 
