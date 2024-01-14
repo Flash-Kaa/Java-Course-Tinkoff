@@ -9,7 +9,7 @@ public class TaskTest {
     }
 
     @Test
-    void test() {
+    void test() throws Throwable {
         Main benchClass = new Main();
 
         benchClass.setupParams();

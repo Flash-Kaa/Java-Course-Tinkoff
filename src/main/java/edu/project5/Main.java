@@ -23,8 +23,6 @@ public class Main {
     private final static int WARMUPS = 2;
 
     private Student instance;
-    private Class<?> tClass;
-    private String methodName;
     private Object[] args;
     private Method method;
     private MethodHandle methodHandle;
@@ -41,41 +39,29 @@ public class Main {
     }
 
     @Setup
-    public void setupParams() {
+    public void setupParams() throws Throwable {
         // for first method
         instance = new Student("Egor", "Fka");
 
         // for second method
-        methodName = "name";
+        String methodName = "name";
+        Class<?> tClass = instance.getClass();
         args = new Object[0];
-        tClass = instance.getClass();
 
-        try {
-            method = tClass.getMethod(methodName);
-        } catch (NoSuchMethodException e) {
-            throw new RuntimeException(e);
-        }
+        method = tClass.getMethod(methodName);
 
         // for third method
-        try {
-            methodHandle = MethodHandles.lookup().unreflect(method);
-        } catch (IllegalAccessException e) {
-            throw new RuntimeException(e);
-        }
+        methodHandle = MethodHandles.lookup().unreflect(method);
 
         // for fourth method
-        try {
-            methodWithMetaFactory = (MyFunctionalInterface) LambdaMetafactory.metafactory(
-                MethodHandles.lookup(),
-                "apply",
-                MethodType.methodType(MyFunctionalInterface.class),
-                MethodType.methodType(Object.class, Object.class),
-                methodHandle,
-                MethodType.methodType(Object.class, tClass)
-            ).getTarget().invokeExact();
-        } catch (Throwable e) {
-            throw new RuntimeException(e);
-        }
+        methodWithMetaFactory = (MyFunctionalInterface) LambdaMetafactory.metafactory(
+            MethodHandles.lookup(),
+            "apply",
+            MethodType.methodType(MyFunctionalInterface.class),
+            MethodType.methodType(Object.class, Object.class),
+            methodHandle,
+            MethodType.methodType(Object.class, tClass)
+        ).getTarget().invokeExact();
     }
 
     @Benchmark
@@ -92,28 +78,20 @@ public class Main {
     @Fork(value = VALUE, warmups = WARMUPS)
     @OutputTimeUnit(TimeUnit.NANOSECONDS)
     @BenchmarkMode(Mode.AverageTime)
-    public String secondCalcBench(Blackhole bh) {
-        try {
-            Object res = method.invoke(instance, args);
-            bh.consume(res);
-            return res.toString();
-        } catch (IllegalAccessException | InvocationTargetException e) {
-            throw new RuntimeException(e);
-        }
+    public String secondCalcBench(Blackhole bh) throws InvocationTargetException, IllegalAccessException {
+        Object res = method.invoke(instance, args);
+        bh.consume(res);
+        return res.toString();
     }
 
     @Benchmark
     @Fork(value = VALUE, warmups = WARMUPS)
     @OutputTimeUnit(TimeUnit.NANOSECONDS)
     @BenchmarkMode(Mode.AverageTime)
-    public String thirdCalcBench(Blackhole bh) {
-        try {
-            Object res = methodHandle.invoke(instance);
-            bh.consume(res);
-            return res.toString();
-        } catch (Throwable e) {
-            throw new RuntimeException(e);
-        }
+    public String thirdCalcBench(Blackhole bh) throws Throwable {
+        Object res = methodHandle.invoke(instance);
+        bh.consume(res);
+        return res.toString();
     }
 
     @Benchmark
@@ -121,12 +99,8 @@ public class Main {
     @OutputTimeUnit(TimeUnit.NANOSECONDS)
     @BenchmarkMode(Mode.AverageTime)
     public String fourthCalcBench(Blackhole bh) {
-        try {
-            Object res = methodWithMetaFactory.apply(instance);
-            bh.consume(res);
-            return res.toString();
-        } catch (Throwable e) {
-            throw new RuntimeException(e);
-        }
+        Object res = methodWithMetaFactory.apply(instance);
+        bh.consume(res);
+        return res.toString();
     }
 }
