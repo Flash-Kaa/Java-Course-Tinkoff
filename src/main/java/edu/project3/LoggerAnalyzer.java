@@ -6,14 +6,13 @@ import edu.project3.readers.ReaderURI;
 import edu.project3.statistics.Statistics;
 import edu.project3.terminal.TerminalRequest;
 import java.util.List;
+import java.util.concurrent.CompletableFuture;
 import java.util.concurrent.ExecutionException;
-import java.util.concurrent.FutureTask;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 public class LoggerAnalyzer {
-    private final FutureTask<String> task;
-    private final Thread thread;
+    private final CompletableFuture<String> futureTask;
 
     public LoggerAnalyzer(TerminalRequest request, List<Statistics> statisticsTypes) {
         Pattern httpPattern = Pattern.compile("^http");
@@ -22,7 +21,7 @@ public class LoggerAnalyzer {
         ReaderURI reader = matcher.find() ? new ReaderHTTP() : new FileReader();
         String titleType = request.resultFormat() == TerminalRequest.ResultFormat.ADOC ? "====" : "####";
 
-        task = new FutureTask<>(
+        futureTask = CompletableFuture.supplyAsync(
             () -> {
                 String logs = reader.read(request.uri());
                 List<Request> parsedLogs = LoggerParser.parse(logs);
@@ -46,13 +45,11 @@ public class LoggerAnalyzer {
                 return sb.toString();
             }
         );
-        thread = new Thread(task);
-        thread.start();
     }
 
     public String getAnalysis() {
         try {
-            return task.get();
+            return futureTask.get();
         } catch (ExecutionException | InterruptedException e) {
             throw new RuntimeException(e);
         }

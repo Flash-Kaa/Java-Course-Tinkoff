@@ -16,8 +16,8 @@ public class RequestMethodCountInfo extends Statistics {
         }
 
         table.add(new Pair("Метод", "Количество"));
-        for (Request.MethodRequest i : map.keySet()) {
-            table.add(new Pair(i.toString(), map.get(i).toString()));
+        for (Map.Entry<Request.MethodRequest, Integer> i : map.entrySet()) {
+            table.add(new Pair(i.getKey().toString(), i.getValue().toString()));
         }
     }
 

@@ -6,6 +6,7 @@ import java.net.URISyntaxException;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.time.format.DateTimeParseException;
+import java.time.temporal.TemporalAccessor;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.regex.Matcher;
@@ -79,7 +80,8 @@ public class LoggerParser {
 
     private static LocalDateTime getDateTime(String dateTime) {
         try {
-            return LocalDateTime.parse(dateTime, DATE_TIME_FORMATTER);
+            TemporalAccessor dateTimeParsed = DATE_TIME_FORMATTER.parse(dateTime);
+            return LocalDateTime.from(dateTimeParsed);
         } catch (DateTimeParseException e) {
             Terminal.getLogger().error(String.format("Illegal datetime: %s", dateTime));
             return null;

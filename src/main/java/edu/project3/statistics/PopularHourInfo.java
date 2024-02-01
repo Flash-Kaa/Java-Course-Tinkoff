@@ -17,8 +17,8 @@ public class PopularHourInfo extends Statistics {
         }
 
         table.add(new Pair("Час", "Количество запросов"));
-        for (Integer i : map.keySet()) {
-            table.add(new Pair(i.toString(), map.get(i).toString()));
+        for (Map.Entry<Integer, Integer> i : map.entrySet()) {
+            table.add(new Pair(i.getKey().toString(), i.getValue().toString()));
         }
     }
 

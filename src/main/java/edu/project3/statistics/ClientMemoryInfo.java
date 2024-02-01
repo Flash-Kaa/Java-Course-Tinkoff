@@ -16,8 +16,8 @@ public class ClientMemoryInfo extends Statistics {
         }
 
         table.add(new Pair("Ip", "Отправленно ресурсов"));
-        for (String i : map.keySet()) {
-            table.add(new Pair(i, map.get(i).toString()));
+        for (Map.Entry<String, Long> i : map.entrySet()) {
+            table.add(new Pair(i.getKey(), i.getValue().toString()));
         }
     }
 

@@ -27,49 +27,47 @@ public class ReadersTest {
     private final static int INDEX_LINE_WITH_PATH = 6;
 
     private static Stream<Arguments> argumentProvider() {
-        var constant = new Constant(1);
-
         return Stream.of(
             Arguments.of(
-                "java -jar nginx-log-stats.jar --path src/main/java/edu/project3/logs.txt --format adoc",
+                "java -jar nginx-log-stats.jar --path src/test/resources/logs.txt --format adoc",
                 "java -jar nginx-log-stats.jar --path https://raw.githubusercontent.com/elastic/"
                     + "examples/master/Common%20Data%20Formats/nginx_logs/nginx_logs --format adoc"
             ),
             Arguments.of(
-                "java -jar nginx-log-stats.jar --path src/main/java/edu/project3/logs.txt",
+                "java -jar nginx-log-stats.jar --path src/test/resources/logs.txt",
                 "java -jar nginx-log-stats.jar --path https://raw.githubusercontent.com/elastic/"
                     + "examples/master/Common%20Data%20Formats/nginx_logs/nginx_logs"
             ),
             Arguments.of(
-                "java -jar nginx-log-stats.jar --path src/main/java/edu/project3/logs.txt --format markdown",
+                "java -jar nginx-log-stats.jar --path src/test/resources/logs.txt --format markdown",
                 "java -jar nginx-log-stats.jar --path https://raw.githubusercontent.com/elastic/"
                     + "examples/master/Common%20Data%20Formats/nginx_logs/nginx_logs --format markdown"
             ),
             Arguments.of(
-                "java -jar nginx-log-stats.jar --path src/main/java/edu/project3/logs.txt --from 2015-05-30 --format markdown",
+                "java -jar nginx-log-stats.jar --path src/test/resources/logs.txt --from 2015-05-30 --format markdown",
                 "java -jar nginx-log-stats.jar --path https://raw.githubusercontent.com/elastic/"
                     +
                     "examples/master/Common%20Data%20Formats/nginx_logs/nginx_logs --from 2015-05-30 --format markdown"
             ),
             Arguments.of(
-                "java -jar nginx-log-stats.jar --path src/main/java/edu/project3/logs.txt --from 2025-05-30 --format markdown",
+                "java -jar nginx-log-stats.jar --path src/test/resources/logs.txt --from 2025-05-30 --format markdown",
                 "java -jar nginx-log-stats.jar --path https://raw.githubusercontent.com/elastic/"
                     +
                     "examples/master/Common%20Data%20Formats/nginx_logs/nginx_logs --from 2025-05-30 --format markdown"
             ),
             Arguments.of(
-                "java -jar nginx-log-stats.jar --path src/main/java/edu/project3/logs.txt --from 2015-05-30 --to 2015-06-10 --format markdown",
+                "java -jar nginx-log-stats.jar --path src/test/resources/logs.txt --from 2015-05-30 --to 2015-06-10 --format markdown",
                 "java -jar nginx-log-stats.jar --path https://raw.githubusercontent.com/elastic/"
                     +
                     "examples/master/Common%20Data%20Formats/nginx_logs/nginx_logs --from 2015-05-30 --to 2015-06-10 --format markdown"
             ),
             Arguments.of(
-                "java -jar nginx-log-stats.jar --path src/main/java/edu/project3/logs.txt --to 2015-06-10 --format markdown",
+                "java -jar nginx-log-stats.jar --path src/test/resources/logs.txt --to 2015-06-10 --format markdown",
                 "java -jar nginx-log-stats.jar --path https://raw.githubusercontent.com/elastic/"
                     + "examples/master/Common%20Data%20Formats/nginx_logs/nginx_logs --to 2015-06-10 --format markdown"
             ),
             Arguments.of(
-                "java -jar nginx-log-stats.jar --path src/main/java/edu/project3/logs.txt --to 2010-06-10 --format markdown",
+                "java -jar nginx-log-stats.jar --path src/test/resources/logs.txt --to 2010-06-10 --format markdown",
                 "java -jar nginx-log-stats.jar --path https://raw.githubusercontent.com/elastic/"
                     + "examples/master/Common%20Data%20Formats/nginx_logs/nginx_logs --to 2010-06-10 --format markdown"
             )

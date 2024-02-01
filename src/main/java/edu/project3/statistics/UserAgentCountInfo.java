@@ -16,8 +16,8 @@ public class UserAgentCountInfo extends Statistics {
         }
 
         table.add(new Pair("Место", "Количество"));
-        for (String i : map.keySet()) {
-            table.add(new Pair(i, map.get(i).toString()));
+        for (Map.Entry<String, Integer> i : map.entrySet()) {
+            table.add(new Pair(i.getKey(), i.getValue().toString()));
         }
     }
 

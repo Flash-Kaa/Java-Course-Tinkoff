@@ -17,8 +17,8 @@ public class ResourcesCountInfo extends Statistics {
         }
 
         table.add(new Pair("Ресурс", "Количество"));
-        for (URI i : map.keySet()) {
-            table.add(new Pair(i.toString(), map.get(i).toString()));
+        for (Map.Entry<URI, Integer> i : map.entrySet()) {
+            table.add(new Pair(i.getKey().toString(), i.getValue().toString()));
         }
     }
 
